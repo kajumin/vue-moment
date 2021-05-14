@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const isDev = process.env.NODE_ENV === 'development'
 module.exports = {
   // 第一种方法
   // configureWebpack: {
@@ -11,5 +12,16 @@ module.exports = {
       .plugin('ignore')
       // 忽略/moment/locale下的所有文件
       .use(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/))
+  },
+  configureWebpack: config => {
+    // 移除console.log
+    if (!isDev) {
+      config.optimization.minimizer.map((arg) => {
+        const option = arg.options.terserOptions.compress
+        option.drop_console = true // 打开开关
+        option.pure_funcs = ['console.log']
+        return arg
+      })
+    }
   }
 }
