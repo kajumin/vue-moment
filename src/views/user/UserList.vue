@@ -39,6 +39,10 @@ export default {
 
 <style lang="scss" scoped>
 .user-list {
+  width: 1000px;
+  margin: 0 auto;
   min-height: 400px;
+  background-color: #f1f1f1;
 }
+
 </style>
